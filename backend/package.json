@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/app.ts",
-    "build": "npx tsc",
+    "build": "npx tsc && tsc-alias",
     "start": "node dist/app.js"
   },
   "author": "Nishant",
@@ -18,10 +18,17 @@
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "joi": "^18.0.1",
-    "ts-node": "^10.9.2"
+    "module-alias": "^2.2.3",
+    "morgan": "^1.10.1",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.16"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.3"
+    "@types/express": "^5.0.3",
+    "@types/morgan": "^1.9.10"
+  },
+  "_moduleAliases": {
+    "@": "./src/"
   }
 }

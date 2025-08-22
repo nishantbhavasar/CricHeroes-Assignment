@@ -1,0 +1,62 @@
+[
+  {
+    "team": "Chennai Super Kings",
+    "matches": 7,
+    "won": 5,
+    "lost": 2,
+    "nrr": 0.771,
+    "forRuns": 1130,
+    "forOvers": "133.1",
+    "againstRuns": 1071,
+    "againstOvers": "138.5",
+    "points": 10
+  },
+  {
+    "team": "Royal Challengers Bangalore",
+    "matches": 7,
+    "won": 4,
+    "lost": 3,
+    "nrr": 0.597,
+    "forRuns": 1217,
+    "forOvers": "140",
+    "againstRuns": 1066,
+    "againstOvers": "131.4",
+    "points": 8
+  },
+  {
+    "team": "Delhi Capitals",
+    "matches": 7,
+    "won": 4,
+    "lost": 3,
+    "nrr": 0.319,
+    "forRuns": 1085,
+    "forOvers": "126",
+    "againstRuns": 1136,
+    "againstOvers": "137",
+    "points": 8
+  },
+  {
+    "team": "Rajasthan Royals",
+    "matches": 7,
+    "won": 3,
+    "lost": 4,
+    "nrr": 0.331,
+    "forRuns": 1066,
+    "forOvers": "128.2",
+    "againstRuns": 1094,
+    "againstOvers": "137.1",
+    "points": 6
+  },
+  {
+    "team": "Mumbai Indians",
+    "matches": 8,
+    "won": 2,
+    "lost": 6,
+    "nrr": -1.75,
+    "forRuns": 1003,
+    "forOvers": "155.2",
+    "againstRuns": 1134,
+    "againstOvers": "138.1",
+    "points": 4
+  }
+]
