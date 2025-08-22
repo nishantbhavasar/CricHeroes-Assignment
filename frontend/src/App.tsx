@@ -1,11 +1,19 @@
+import { lazy, Suspense } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router";
+import { Toaster } from "react-hot-toast";
+const Home = lazy(() => import("./pages/Home"));
 
 function App() {
-
   return (
-    <h1>
-      Hello World
-    </h1>
-  )
+    <Router>
+      <Suspense fallback={<span>Loading...</span>}>
+        <Toaster />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Suspense>
+    </Router>
+  );
 }
 
-export default App
+export default App;
