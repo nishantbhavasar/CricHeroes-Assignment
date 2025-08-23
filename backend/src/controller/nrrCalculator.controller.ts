@@ -1,5 +1,6 @@
+import { NRRCalculatorService } from "@/services/nrr.service";
 import { ResponseType } from "@/types/responseType";
-
+const nrrService = new NRRCalculatorService();
 export class NRRCalculatorController {
   async getPointTable(): Promise<ResponseType> {
     const pointTable = await import("../data/PointTable2022.json");
@@ -17,11 +18,12 @@ export class NRRCalculatorController {
 
   async calculateNrr(data: any): Promise<ResponseType> {
     try {
+      const scenario = await nrrService.computeScenario(data);
       return {
         message: "NRR",
         statusCode: 200,
         success: true,
-        data: 1,
+        data: scenario,
       };
     } catch (error: any) {
       throw new Error(error?.message);

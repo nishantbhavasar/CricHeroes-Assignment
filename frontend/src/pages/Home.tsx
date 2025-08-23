@@ -4,7 +4,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import type { Team } from "../types/TeamDataType";
 import Input from "../components/Input";
 import { useForm } from "react-hook-form";
-import type { NrrFormData } from "../types/NrrFormData";
+import type { NrrFormData, NrrResponseType } from "../types/NrrFormData";
 import toast from "react-hot-toast";
 import Select from "../components/Select";
 import Button from "../components/Button";
@@ -15,7 +15,8 @@ const Home = () => {
   const [isTableLoading, setTableIsLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [pointTableData, setPointTableData] = useState<Team[]>([]);
-  const [responseMessage, setResponseMessage] = useState<string>("");
+  const [responseMessage, setResponseMessage] =
+    useState<NrrResponseType | null>(null);
   const {
     register,
     handleSubmit,
@@ -46,7 +47,7 @@ const Home = () => {
   }, []);
 
   // Column Defination
-  const columns = useMemo<ColumnDef<Team, any>[]>(
+  const columns = useMemo<ColumnDef<Team, unknown>[]>(
     () => [
       {
         id: "index",
@@ -112,7 +113,6 @@ const Home = () => {
         throw new Error(pointTableData?.message);
       }
     } catch (error: any) {
-      console.error("Error fetching data:", error);
       toast.error(error?.message ?? "Failed To Fetch Point Table");
     } finally {
       setTableIsLoading(false);
@@ -271,7 +271,7 @@ const Home = () => {
                 variant="danger"
                 onClick={() => {
                   reset();
-                  setResponseMessage("");
+                  setResponseMessage(null);
                 }}
                 disabled={isLoading}
                 className="w-32 h-10 text-base font-semibold rounded-lg shadow-md bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors duration-300"
@@ -283,7 +283,44 @@ const Home = () => {
           {responseMessage && (
             <div className="w-full max-w-md mt-8 p-6 rounded-xl shadow-lg bg-gradient-to-r from-purple-100 to-blue-100 border border-purple-200 text-center">
               <h2 className="text-xl font-bold text-purple-700 mb-2">Result</h2>
-              <p className="text-lg text-gray-800">{responseMessage}</p>
+              <div className="result">
+                <div className="mt-2">
+                  {responseMessage.result?.statement ||
+                    "No feasible range found."}
+                </div>
+                {responseMessage.mode === "batting-first" &&
+                  responseMessage.result?.restrictRunsRange && (
+                    <div className="small" style={{ marginTop: 6 }}>
+                      Restrict Range:{" "}
+                      <b>
+                        {responseMessage.result.restrictRunsRange[0]} -{" "}
+                        {responseMessage.result.restrictRunsRange[1]} runs
+                      </b>
+                      <br />
+                      Revised NRR Range:{" "}
+                      <b>
+                        {responseMessage.result.revisedNRRRange[0]} to{" "}
+                        {responseMessage.result.revisedNRRRange[1]}
+                      </b>
+                    </div>
+                  )}
+                {responseMessage.mode === "bowling-first" &&
+                  responseMessage.result?.chaseOversRange && (
+                    <div className="small" style={{ marginTop: 6 }}>
+                      Chase Overs Range:{" "}
+                      <b>
+                        {responseMessage.result.chaseOversRange[0]} -{" "}
+                        {responseMessage.result.chaseOversRange[1]} overs
+                      </b>
+                      <br />
+                      Revised NRR Range:{" "}
+                      <b>
+                        {responseMessage.result.revisedNRRRange[0]} to{" "}
+                        {responseMessage.result.revisedNRRRange[1]}
+                      </b>
+                    </div>
+                  )}
+              </div>
             </div>
           )}
         </div>
