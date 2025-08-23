@@ -12,6 +12,7 @@ import nrr from "../Apis/nrr";
 
 const Home = () => {
   // State
+  const [isTableLoading, setTableIsLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [pointTableData, setPointTableData] = useState<Team[]>([]);
   const [responseMessage, setResponseMessage] = useState<string>("");
@@ -100,7 +101,7 @@ const Home = () => {
 
   // Helper Functions
   const fetchPointTableData = async () => {
-    setIsLoading(true);
+    setTableIsLoading(true);
     try {
       const pointTableData = await nrr.fetchPointTableData();
       if (pointTableData.success) {
@@ -114,20 +115,20 @@ const Home = () => {
       console.error("Error fetching data:", error);
       toast.error(error?.message ?? "Failed To Fetch Point Table");
     } finally {
-      setIsLoading(false);
+      setTableIsLoading(false);
     }
   };
 
   const submit = async (formData: NrrFormData) => {
     try {
-      console.log({ formData });
+      const calculatedNrr = await nrr.calculateNrr(formData);
       setIsLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1200));
-      const simulatedResponse = `Your NRR calculation result: ${Math.random().toFixed(
-        3
-      )}`;
-      setResponseMessage(simulatedResponse);
-      toast.success("Calculation successful!");
+      if (calculatedNrr.success) {
+        setResponseMessage(calculatedNrr?.data);
+        toast.success("Calculation successful!");
+      } else {
+        throw new Error(calculatedNrr?.message);
+      }
     } catch (error: any) {
       toast.error(error?.message ?? "Error creating task");
     } finally {
@@ -147,7 +148,7 @@ const Home = () => {
               columns={columns}
               data={pointTableData}
               rowCount={10}
-              isLoading={isLoading}
+              isLoading={isTableLoading}
               emptyTableChild={
                 <div className="text-center py-12">
                   <p className="text-gray-500">Team Not Found</p>
@@ -173,6 +174,7 @@ const Home = () => {
               })}
               required
               error={errors.your_team?.message}
+              disabled={isLoading}
             />
             <Select
               label="Opposition Team"
@@ -188,6 +190,7 @@ const Home = () => {
               })}
               required
               error={errors.opp_team?.message}
+              disabled={isLoading}
             />
             <Input
               error={errors.match_overs?.message}
@@ -206,6 +209,7 @@ const Home = () => {
               })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
               placeholder="Enter Match Overs"
+              disabled={isLoading}
             />
             <Input
               error={errors.desired_position?.message}
@@ -224,6 +228,7 @@ const Home = () => {
               })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
               placeholder="Enter Desired Position"
+              disabled={isLoading}
             />
             <Select
               label="Toss Result"
@@ -237,6 +242,7 @@ const Home = () => {
               })}
               required
               error={errors.toss_result?.message}
+              disabled={isLoading}
             />
             <Input
               error={errors.runs_scored_chase?.message}
@@ -249,6 +255,7 @@ const Home = () => {
               })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
               placeholder="Enter Runs"
+              disabled={isLoading}
             />
             <div className="flex gap-4 justify-center mt-4">
               <Button

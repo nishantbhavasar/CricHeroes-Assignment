@@ -6,7 +6,7 @@ const Home = lazy(() => import("./pages/Home"));
 function App() {
   return (
     <Router>
-      <Suspense fallback={<span>Loading...</span>}>
+      <Suspense fallback={<span></span>}>
         <Toaster />
         <Routes>
           <Route path="/" element={<Home />} />

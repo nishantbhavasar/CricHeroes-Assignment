@@ -2,7 +2,7 @@ import { ResponseType } from "@/types/responseType";
 
 export class NRRCalculatorController {
   async getPointTable(): Promise<ResponseType> {
-    const pointTable = await import('../data/PointTable2022.json');
+    const pointTable = await import("../data/PointTable2022.json");
     try {
       return {
         message: "Point Table Fetched Successfully",
@@ -15,7 +15,7 @@ export class NRRCalculatorController {
     }
   }
 
-  async calculateNrr(): Promise<ResponseType> {
+  async calculateNrr(data: any): Promise<ResponseType> {
     try {
       return {
         message: "NRR",

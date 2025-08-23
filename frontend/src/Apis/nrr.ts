@@ -10,7 +10,17 @@ const fetchPointTableData = async () => {
   }
 };
 
+const calculateNrr = async (data:any) => {
+  try {
+    const response = await api.post('/calculate-nrr',data);
+    return response?.data;
+  } catch (error:any) {
+    toast.error(error?.message ?? "Failed To Calucate NRR")
+  }
+}
+
 
 export default {
-  fetchPointTableData
+  fetchPointTableData,
+  calculateNrr
 }
