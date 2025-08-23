@@ -43,7 +43,23 @@ export class NRRCalculatorService {
 
   applyMatch(
     table: Team[],
-    { teamA, teamB, matchOvers, aRuns, aBalls, bRuns, bBalls }: any
+    {
+      teamA,
+      teamB,
+      match_overs,
+      aRuns,
+      aBalls,
+      bRuns,
+      bBalls,
+    }: {
+      teamA: string;
+      teamB: string;
+      match_overs: number;
+      aRuns: number;
+      aBalls: number;
+      bRuns: number;
+      bBalls: number;
+    }
   ) {
     const t = deepClone(table);
     const A = t.find((x: Team) => x.team === teamA);
@@ -79,7 +95,7 @@ export class NRRCalculatorService {
       A.lost += 1;
       B.points += 2;
     } else {
-      // tie 
+      // tie
       A.points += 1;
       B.points += 1;
     }
@@ -123,7 +139,6 @@ export class NRRCalculatorService {
     match_overs = Number(match_overs);
     desired_position = Number(desired_position);
     runs_scored_chase = Number(runs_scored_chase);
-
 
     if (toss_result === "batting_first") {
       const aRuns = runs_scored_chase;
@@ -179,7 +194,7 @@ export class NRRCalculatorService {
           match_overs,
           aRuns,
           aBalls,
-          bRuns: minAllowed,
+          bRuns: minAllowed!,
           bBalls,
         });
         const lowNrr = lowTbl?.find?.((t) => t.team === your_team)?.nrr;

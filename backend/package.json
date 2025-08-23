@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "nodemon src/app.ts",
     "build": "npx tsc && tsc-alias",
     "start": "node dist/app.js"
@@ -24,9 +24,16 @@
     "tsc-alias": "^1.8.16"
   },
   "devDependencies": {
+    "@babel/core": "^7.28.3",
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-typescript": "^7.27.1",
+    "@jest/globals": "^30.0.5",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
-    "@types/morgan": "^1.9.10"
+    "@types/morgan": "^1.9.10",
+    "babel-jest": "^30.0.5",
+    "jest": "^30.0.5",
+    "ts-jest": "^29.4.1"
   },
   "_moduleAliases": {
     "@": "./src/"
