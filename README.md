@@ -30,3 +30,13 @@ Summury: Team Can Calculate The Range Of Nrr & Runs Which Can Help To Identify T
 - npm run dev
 
 ### frontend is running on /frontend/.env http://localhost:5173/
+
+## Tools Userd During Development
+
+- Linux OS - system (Ubuntu 22.04)
+- Node - for running environment
+- Vs Code - for code editor
+- ChatGPT - for error solving / algorithm understanding / testing with jest
+- Google - for search / Read Obout Library Used in Project / Library Documantation / Bug Solving
+- Figma - For Design Reference
+- GitHub - for maintain code consistancy with suggestions / Code Upload
