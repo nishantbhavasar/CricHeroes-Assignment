@@ -1,42 +1,146 @@
-# How To Run This Project
+# 🏏 IPL NRR & Runs Calculator
 
+Calculate **required Net Run Rate (NRR)** and **runs to score/restrict** so a team can reach a desired position in the **IPL Points Table**.
 
-### Node.js Version
+---
 
-v22.11.0
+## ✨ Summary
 
-## What Are The Feature Imlementade
+The tool helps teams estimate:
+- The **range of NRR** needed, and
+- The **runs to score or restrict the opposition to**
 
-Summury: Team Can Calculate The Range Of Nrr & Runs Which Can Help To Identify Team How Many Runs Or Nrr To Restrict Opposition Team To Reach Desier Point In IPL Point Table
+…so they can meet a target on the points table.
 
-## Run Backend Server
+---
 
-1) create file .env at /backend/.env
-2) copy file /backend/example.env to /backend/.env
-3) Follow below commands to run server
-- cd backend
-- npm install
-- npm run dev
+## 🧰 Tech Stack
 
-### server is running on port 5000
+- **Backend:** Node.js (v22.11.0), Express
+- **Frontend:** React (Vite)
+- **Testing:** Jest (if configured)
+- **Dev Tools:**  
+  - Linux (Ubuntu 22.04) – Dev environment  
+  - VS Code – Editor  
+  - ChatGPT – Error solving / algorithm understanding / testing ideas  
+  - Google – Research, library docs, bug solving  
+  - Figma – Design reference  
+  - GitHub – Version control & collaboration
 
-## Run Frontend
+> **Node.js Version:** `v22.11.0` (use this for local development unless you run via Docker)
 
-1) create file .env at /frontend/.env
-2) copy file /frontend/example.env to /frontend/.env
-3) Follow below commands to run server
-- cd frontend
-- npm install
-- npm run dev
+---
 
-### frontend is running on /frontend/.env http://localhost:5173/
+## 🚀 Quick Start
 
-## Tools Userd During Development
+### Backend
 
-- Linux OS - system (Ubuntu 22.04)
-- Node - for running environment
-- Vs Code - for code editor
-- ChatGPT - for error solving / algorithm understanding / testing with jest
-- Google - for search / Read Obout Library Used in Project / Library Documantation / Bug Solving
-- Figma - For Design Reference
-- GitHub - for maintain code consistancy with suggestions / Code Upload
+1. Create `.env` in `backend/`
+   ```bash
+   cp backend/example.env backend/.env
+   ```
+2. Install & run:
+   ```bash
+   cd backend
+   npm install
+   npm run dev
+   ```
+3. Backend runs at **http://localhost:5000**
+
+---
+
+### Frontend
+
+1. Create `.env` in `frontend/`
+   ```bash
+   cp frontend/example.env frontend/.env
+   ```
+2. Install & run:
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+3. Frontend runs at **http://localhost:5173/**
+
+---
+
+## 🐳 Run with Docker
+
+1. Install Docker Desktop:
+   - **Windows:** https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-win-amd64  
+   - **macOS (ARM64):** https://desktop.docker.com/mac/main/arm64/Docker.dmg?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-mac-arm64  
+   - **Linux (Ubuntu):** https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64
+2. From the project root:
+   ```bash
+   docker compose up
+   ```
+
+This will start both **frontend** and **backend** containers.
+
+---
+
+## 📂 Project Structure
+
+```
+.
+├── backend/
+│   ├── example.env
+│   ├── src/
+│   └── ...
+├── frontend/
+│   ├── example.env
+│   ├── src/
+│   └── ...
+├── docker-compose.yml
+└── README.md
+```
+
+---
+
+## 🧪 NPM Scripts (common)
+
+> **Backend** (`/backend`)
+- `npm run dev` — start dev server (nodemon if configured)
+- `npm test` — run tests (if configured)
+
+> **Frontend** (`/frontend`)
+- `npm run dev` — start Vite dev server
+- `npm run build` — production build
+- `npm run preview` — preview production build
+
+---
+
+## 🗝️ Environment Variables
+
+Create and update these from the provided examples:
+
+- **Backend:** `backend/.env` (copy from `backend/example.env`)
+- **Frontend:** `frontend/.env` (copy from `frontend/example.env`)
+
+> Fill in values like API base URLs, keys, and any feature flags required by your setup.
+
+---
+
+## 🛠️ Troubleshooting
+
+- **Port already in use**
+  - Backend: change port in `backend/.env` (default `5000`)
+  - Frontend: change Vite port using `--port` or `.env` (default `5173`)
+- **Wrong Node version**
+  - Use `v22.11.0` (or run via Docker to avoid local version issues)
+- **CORS errors**
+  - Ensure frontend `VITE_API_BASE_URL` points to the backend URL
+  - Confirm backend CORS middleware allows the frontend origin
+
+---
+
+## 📜 License
+
+Add your license here (e.g., MIT).
+
+---
+
+## 🙌 Contributing
+
+Issues and PRs are welcome. Please open an issue for discussion before large changes.
