@@ -109,20 +109,22 @@ export class NRRCalculatorService {
   }
 
   boundarySearch(low: number, high: number, condition: Function, dir = "max") {
-    let ans = null;
-    while (low <= high) {
-      const mid = Math.floor((low + high) / 2);
-      const ok = condition(mid);
-      if (ok) {
-        ans = mid;
-        if (dir === "max") low = mid + 1;
-        else high = mid - 1;
-      } else {
-        if (dir === "max") high = mid - 1;
-        else low = mid + 1;
+    if (dir === "max") {
+      // Find the maximum value where condition is true
+      for (let i = high; i >= low; i--) {
+        if (condition(i)) {
+          return i;
+        }
+      }
+    } else {
+      // Find the minimum value where condition is true
+      for (let i = low; i <= high; i++) {
+        if (condition(i)) {
+          return i;
+        }
       }
     }
-    return ans;
+    return null;
   }
 
   async computeScenario({
@@ -135,10 +137,10 @@ export class NRRCalculatorService {
   }: NrrCalculatorPayloadType) {
     const BASE_TABLE = await import("../data/PointTable2022.json");
     const base = this.sortStandings(deepClone(BASE_TABLE?.default));
-    const ballsPerInnings = match_overs * 6;
     match_overs = Number(match_overs);
     desired_position = Number(desired_position);
     runs_scored_chase = Number(runs_scored_chase);
+    const ballsPerInnings = match_overs * 6;
 
     if (toss_result === "batting_first") {
       const aRuns = runs_scored_chase;
@@ -159,7 +161,7 @@ export class NRRCalculatorService {
           bBalls,
         });
         const position = this.findPosition(table, your_team);
-        return position !== -1 && position <= desired_position;
+        return position === desired_position;
       };
 
       const maxAllowed = this.boundarySearch(
@@ -250,7 +252,7 @@ export class NRRCalculatorService {
           bBalls,
         });
         const position = this.findPosition(table, your_team);
-        return position !== -1 && position <= desired_position;
+        return position === desired_position;
       };
 
       const minBallsToAchieve = this.boundarySearch(
